@@ -12,13 +12,14 @@ A Python project for Historical 500 stock market data for current S&P 500 compan
   - Data source
   - Data overview
   - Data cleaning and processing
+  - Data Visualization
   - Recommendation
 
-**Project Overview:**
+### Project Overview:
 
 This project involves an exploratory data analysis (EDA) of historical stock price data for S&P 500 companies between January 2, 2014, and December 29, 2017. The goal is to uncover patterns, answer specific business questions, and draw investment insights from the dataset using Python.
 
-**Project Scope:**
+### Project Scope:
 
 - Analyze trading volume trends across dates and weekdays
 - Identify the most volatile day for Amazon (AMZN)
@@ -26,7 +27,7 @@ This project involves an exploratory data analysis (EDA) of historical stock pri
 - Evaluate investment performance over time
 - Deliver insights that could inform future trading or investment decisions.
 
-**Business Objectives**
+### Business Objectives:
 
  - Determine peak trading activity periods
  - Understand which weekdays typically see more or less market activity
@@ -67,6 +68,89 @@ A potential investor or financial analyst could use this analysis to:
  - Calculated percentage gain from start to end of dataset per stock
  - Filtered records for specific dates (e.g., 2015-08-24, 2014-01-02, 2017-12-29)
 
+**Data Visualization**
+
+This showcases visual insights derived from data analysis projects, using Python (Pandas, Matplotlib, Numpy, Seaborn) to transform the datasets into clear, actionable visuals. Each visualization highlights key trends, patterns, and outcomes that support data-driven decision making.
+
+ - Top 10 Most Traded Stocks by Volume
+ ```
+  top_volume = df_clean.groupby('symbol')['volume'].sum().sort_values(ascending=False).head(10)
+
+plt.figure(figsize=(10, 6))
+top_volume.plot(kind='bar', color='skyblue')
+plt.title('Top 10 Most Frequently Traded Stocks (2014–2017)', fontsize=14)
+plt.ylabel('Total Volume Traded')
+plt.xlabel('Stock Symbol')
+plt.xticks(rotation=45)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+
+```
+
+- Daily Average Closing Price (All Stocks)
+ ```
+daily_avg_close = df_clean.groupby('date')['close'].mean()
+
+plt.figure(figsize=(12, 5))
+daily_avg_close.plot()
+plt.title('Average Daily Closing Price of All S&P 500 Stocks (2014–2017)')
+plt.xlabel('Date')
+plt.ylabel('Average Close Price')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+```
+- Price Trend of Selected Stocks (e.g., AAPL, MSFT, GOOG)
+```
+selected_stocks = ['AAPL', 'MSFT', 'GOOG']
+plt.figure(figsize=(12, 6))
+
+For stock in selected_stocks:
+    stock_data = df_clean[df_clean['symbol'] == stock]
+    plt.plot(stock_data['date'], stock_data['close'], label=stock)
+
+plt.title('Stock Price Trend (2014–2017)')
+plt.xlabel('Date')
+plt.ylabel('Close Price')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show(
+
+```
+- Monthly Heatmap of Average Close Price (e.g., for AAPL)
+```
+aapl = df_clean[df_clean['symbol'] == 'AAPL']
+aapl['month'] = aapl['date'].dt.to_period('M')
+monthly_avg = aapl.groupby('month')['close'].mean().unstack().reset_index()
+monthly_avg_df = aapl.groupby([aapl['date'].dt.year, aapl['date'].dt.month])['close'].mean().unstack()
+
+plt.figure(figsize=(10, 6))
+sns.heatmap(monthly_avg_df, cmap="YlGnBu", annot=True, fmt=".1f")
+plt.title('AAPL Monthly Average Close Price')
+plt.xlabel('Month')
+plt.ylabel('Year')
+plt.tight_layout()
+plt.show()
+
+```
+- Numpy Analysis: Percent Change and Moving Average
+```
+aapl_sorted = aapl.sort_values(by='date')
+aapl_sorted['pct_change'] = aapl_sorted['close'].pct_change() * 100
+aapl_sorted['moving_avg_30'] = aapl_sorted['close'].rolling(window=30).mean()
+
+plt.figure(figsize=(12, 6))
+plt.plot(aapl_sorted['date'], aapl_sorted['close'], label='AAPL Close')
+plt.plot(aapl_sorted['date'], aapl_sorted['moving_avg_30'], label='30-Day Moving Avg', linestyle='--')
+plt.title('AAPL Close Price & 30-Day Moving Average')
+plt.xlabel('Date')
+plt.ylabel('Price')
+plt.legend()
+plt.grid(True)
+
+```
 **Recommendations**
 
  - Optimal Investment: Invest in the stock with the highest percentage gain over the period (identified during analysis)
