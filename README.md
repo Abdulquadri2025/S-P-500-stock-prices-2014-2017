@@ -87,6 +87,7 @@ plt.tight_layout()
 plt.show()
 
 ```
+![](https://github.com/Abdulquadri2025/same-thing/blob/main/Top%2010%20Most%20frequently%20traded%20stock.png)
 
 - Daily Average Closing Price (All Stocks)
  ```
@@ -101,6 +102,8 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 ```
+![](https://github.com/Abdulquadri2025/same-thing/blob/main/Average%20daily%20closing%20price.png)
+
 - Price Trend of Selected Stocks (e.g., AAPL, MSFT, GOOG)
 ```
 selected_stocks = ['AAPL', 'MSFT', 'GOOG']
@@ -119,6 +122,8 @@ plt.tight_layout()
 plt.show(
 
 ```
+![](https://github.com/Abdulquadri2025/same-thing/blob/main/Stock%20Price%20Trend.png)
+
 - Monthly Heatmap of Average Close Price (e.g., for AAPL)
 ```
 aapl = df_clean[df_clean['symbol'] == 'AAPL']
@@ -135,6 +140,8 @@ plt.tight_layout()
 plt.show()
 
 ```
+![](https://github.com/Abdulquadri2025/same-thing/blob/main/AAPL%20Monthly%20Average%20Close%20Price.png)
+
 - Numpy Analysis: Percent Change and Moving Average
 ```
 aapl_sorted = aapl.sort_values(by='date')
@@ -151,6 +158,8 @@ plt.legend()
 plt.grid(True)
 
 ```
+![](https://github.com/Abdulquadri2025/same-thing/blob/main/AAPL%20Close%20price%20and%2030%20days%20moving%20average.png)
+
 **Recommendations**
 
  - Optimal Investment: Invest in the stock with the highest percentage gain over the period (identified during analysis)
